@@ -7,11 +7,7 @@ from grades import add_grade
 from report import generate_report
 from data import load_data, save_data
 
-<<<<<<< HEAD
 # .......main.........
-=======
-
->>>>>>> 6659a77 (Connect Save Data button to save_with_feedback)
 def main():
     root = tk.Tk()
     root.title("School Report System")
@@ -95,4 +91,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
