@@ -7,7 +7,11 @@ from grades import add_grade
 from report import generate_report
 from data import load_data, save_data
 
+<<<<<<< HEAD
 # .......main.........
+=======
+
+>>>>>>> 6659a77 (Connect Save Data button to save_with_feedback)
 def main():
     root = tk.Tk()
     root.title("School Report System")
@@ -67,7 +71,12 @@ def main():
         btn_view_report = tk.Button(middle_frame, text="View Report", width=20)
         btn_view_report.pack(pady=5)
 
-        btn_save_data = tk.Button(middle_frame, text="Save Data", width=20)
+        btn_save_data = tk.Button(
+            middle_frame,
+            text="Save Data",
+            width=20,
+            command=save_with_feedback
+        )
         btn_save_data.pack(pady=5)
 
         btn_logout = tk.Button(middle_frame, text="Logout", width=20)
