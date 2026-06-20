@@ -11,7 +11,7 @@ def main():
     root = tk.Tk()
     root.title("School Report System")
     root.geometry("400x300")
-    
+
     global students_data
     students_data = load_data()
 
@@ -28,6 +28,13 @@ def show_grade_entry_window(username):
     grade_window = tk.Toplevel()
     grade_window.title("Add Grade")
     grade_window.geometry("300x200")
+    
+
+    data = load_data()
+    ...
+    if user not in data:
+        messagebox.showerror("Error", "Student not found")
+        return
 
     def submit_grade():
         user = username_entry.get()
@@ -48,22 +55,22 @@ def show_grade_entry_window(username):
             messagebox.showerror("Error", "Grade must be between 0 and 20")
             return
 
-        # بارگزاری داده‌ها
+
         data = load_data()
 
-        # بررسی وجود دانش‌آموز
+
         if user not in data:
             messagebox.showerror("Error", "Student not found")
             return
         
-        # ثبت نمره
+
         data = add_grade(data, user, subject, grade_numeric)
         save_data(data)
 
         messagebox.showinfo("Success", "Grade added successfully")
-        grade_window.destroy()  # بستن پنجره
+        grade_window.destroy()  
 
-    # ساخت ویجت‌ها
+
     tk.Label(grade_window, text="Username:").pack()
     username_entry = tk.Entry(grade_window)
     username_entry.pack()
@@ -79,7 +86,7 @@ def show_grade_entry_window(username):
     tk.Button(grade_window, text="Add Grade", command=submit_grade).pack(pady=10)
     tk.Button(grade_window, text="Back", command=grade_window.destroy).pack(pady=5)
 
-# در main()، بعد از تعریف ویجت‌های اصلی، یک دکمه برای نمایش فرم ثبت نمره اضافه کنید.
+
     tk.Button(root, text="Add Grade", command=lambda: show_grade_entry_window("teacher")).pack(pady=10)
  
     root.mainloop()
