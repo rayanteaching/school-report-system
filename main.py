@@ -1,11 +1,11 @@
 import tkinter as tk 
 from tkinter import messagebox
 #.....guys_files.....
-# from auth import teacher_login, student_login
-# from students import add_student
-# from grades import add_grade
-# from report import generate_report
-# from data import load_data, save_data
+from auth import teacher_login, student_login
+from students import add_student
+from grades import add_grade
+from report import generate_report
+from data import load_data, save_data
 #.......main.........
 def main():
     root = tk.Tk()
@@ -17,8 +17,7 @@ def main():
 
     info_label = tk.Label(
         root,
-        text="Main interface will be completed after other
-        modules are merged.",
+        text="Main interface will be completed after other modules are merged.",
         wraplength=300)
     info_label.pack(pady=20)
 
