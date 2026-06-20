@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox
-# .....guys_files..... (برای سازگاری با پروژه اصلی نگه داشته شده)
 from auth import teacher_login, student_login
 from students import add_student
 from grades import add_grade
@@ -11,8 +10,6 @@ def main():
     root = tk.Tk()
     root.title("School Report System")
     root.geometry("400x400")
-
-    # ---------- هدر (بالای پنجره) ----------
     header_frame = tk.Frame(root)
     header_frame.pack(pady=10)
 
@@ -22,12 +19,8 @@ def main():
         font=("Arial", 16, "bold")
     )
     title_label.pack()
-
-    # ---------- فریم میانی (محتوای اصلی که پاک میشود) ----------
     middle_frame = tk.Frame(root)
     middle_frame.pack(expand=True, fill='both', pady=10)
-
-    # ---------- نوار وضعیت (پایین پنجره) ----------
     status_frame = tk.Frame(root)
     status_frame.pack(side='bottom', fill='x', pady=5)
 
@@ -40,14 +33,11 @@ def main():
     status_label.pack(fill='x')
 
     def clear_screen():
-        """حذف تمام ویجتهای موجود در فریم میانی"""
         for widget in middle_frame.winfo_children():
             widget.destroy()
 
     def show_dashboard():
         clear_screen()  
-
-        # دکمهها (فقط ظاهر، بدون عملکرد)
         btn_add_student = tk.Button(middle_frame, text="Add Student", width=20)
         btn_add_student.pack(pady=5)
 
