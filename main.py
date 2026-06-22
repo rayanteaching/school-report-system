@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from data import load_data, save_data
+from auth import teacher_login, student_login 
+from students import add_student 
+from grades import add_grade 
+from report import generate_report
 
 
 def main():
@@ -66,29 +70,6 @@ def main():
     def clear_screen():
         for widget in middle_frame.winfo_children():
             widget.destroy()
-
-    def show_placeholder(title, message):
-        clear_screen()
-
-        page_title = tk.Label(
-            middle_frame,
-            text=title,
-            font=("Segoe UI", 14, "bold"),
-            bg="#f0f4fa",
-            fg="#2c3e50"
-        )
-        page_title.pack(pady=10)
-
-        info_label = tk.Label(
-            middle_frame,
-            text=message,
-            font=("Segoe UI", 10),
-            bg="#f0f4fa",
-            fg="#2c3e50",
-            wraplength=330
-        )
-        info_label.pack(pady=10)
-
         back_button = ttk.Button(
             middle_frame,
             text="Back to Dashboard",
@@ -180,4 +161,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+  main()
