@@ -1,11 +1,12 @@
 import tkinter as tk 
-from tkinter import messagebox
-#.....guys_files.....
+from tkinter import ttk, messagebox 
+from data import load_data, save_data
 from auth import teacher_login, student_login
 from students import add_student
 from grades import add_grade
 from report import generate_report
-from data import load_data, save_data
+ 
+ 
 def main(): 
     data = load_data() 
  
@@ -45,6 +46,7 @@ def main():
     status_var = tk.StringVar(value="Ready") 
  
  
+ 
     status_frame = tk.Frame(root, bg="#dfe6e9") 
     status_frame.pack(side="bottom", fill="x") 
  
@@ -69,6 +71,7 @@ def main():
             widget.destroy() 
  
     def show_placeholder(title, message): 
+
  
         clear_screen() 
  
@@ -169,7 +172,6 @@ def main():
     root.mainloop() 
  
  
- 
 if __name__ == "__main__": 
-    main()
+    main() 
 
