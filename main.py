@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from data import load_data, save_data
-
+from grade_ui import show_add_grade_form
 
 def main():
     students_data = load_data()
