@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Tk
 from report import generate_report
 
 def clear_frame(frame):
@@ -36,15 +36,15 @@ def show_report_window(
     else:
         grades = data[username]["grades"]
         
-    if len(grades) == 0:
-        report_text = f"report card for {username}\n\nNo grades available"
-    else:
-        report_text = generate_report(data, username)
+        if len(grades) == 0:
+            report_text = f"report card for {username}\n\nNo grades available"
+        else:
+            report_text = generate_report(data, username)
         
     report_box.insert(tk.END, report_text)
     report_box.config(state="disabled")
 
-    back_button = tkk.Button(
+    back_button = tk.Button(
         parent,
         text="Back",
         command=on_back
@@ -57,7 +57,7 @@ def show_report_window(
 def run_test_window():
     root = tk.Tk()
     root.title("Report View Test")
-    root.geometry("420=430")
+    root.geometry("420x430")
     
     test_data = {
         "ali": {
@@ -82,7 +82,7 @@ def run_test_window():
         relief="sunken",
         anchor="w"
     )
-    status_label/pack(side="bottom",fill="x")
+    status_label.pack(side="bottom",fill="x")
     
     def update_status(message):
         status_var.set(message)
@@ -97,7 +97,7 @@ def run_test_window():
         )
         title.pack(pady=15)
         
-        ali_button = ttk.Button(
+        ali_button = tk.Button(
             main_frame,
             text="Show ali report",
             command=lambda: show_report_window(
@@ -110,7 +110,7 @@ def run_test_window():
         )
         ali_button.pack(pady=5)
         
-        sara_button = ttk.Button(
+        sara_button = tk.Button(
             main_frame,
             text="Show sara report",
             command=lambda: show_report_window(
@@ -123,7 +123,7 @@ def run_test_window():
         )
         sara_button.pack(pady=5)
         
-        reza_button = ttk.Button(
+        reza_button = tk.Button(
             main_frame,
             text="Show reza report",
             command=lambda: show_report_window(
