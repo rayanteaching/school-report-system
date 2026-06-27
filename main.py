@@ -141,10 +141,12 @@ def main():
             middle_frame,
             text="Add Grade",
             style="Dashboard.TButton",
-            command=lambda: show_placeholder(
-                "Add Grade",
-                "This form will be connected after Student 4 completes grade_ui.py."
-            )
+            command=lambda: show_add_grade_form(
+    parent=middle_frame,
+    data=students_data,
+    on_back=show_dashboard,
+    update_status=update_status
+)
         )
         add_grade_button.pack(pady=5)
 
