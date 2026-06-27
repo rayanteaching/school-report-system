@@ -1,6 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from data import load_data, save_data
+from grade_ui import show_add_grade_form
+from auth import teacher_login, student_login 
+from students import add_student 
+from grades import add_grade 
+from report import generate_report
+from login_ui import show_login_screen
+from report_ui import show_report_window
 
 
 def main():
@@ -109,6 +116,15 @@ def main():
             update_status("Data saved successfully")
             messagebox.showinfo("Success", "Data saved successfully.")
 
+    def show_student_report(username):
+        show_report_window(
+            parent=middle_frame,
+            data=students_data,
+            username=username,
+            on_back=show_dashboard,
+            update_status=update_status
+        )
+
     def show_dashboard():
         clear_screen()
 
@@ -125,9 +141,12 @@ def main():
             middle_frame,
             text="Add Student",
             style="Dashboard.TButton",
-            command=lambda: show_placeholder(
-                "Add Student",
-                "This form will be connected after Student 3 completes add_student_ui.py."
+            command=lambda: show_login_screen(
+                parent=middle_frame,
+                data=students_data,
+                on_teacher_success=show_dashboard,
+                on_student_success=lambda username: show_student_report(username),
+                update_status=update_status
             )
         )
         add_student_button.pack(pady=5)
@@ -136,9 +155,11 @@ def main():
             middle_frame,
             text="Add Grade",
             style="Dashboard.TButton",
-            command=lambda: show_placeholder(
-                "Add Grade",
-                "This form will be connected after Student 4 completes grade_ui.py."
+            command=lambda: show_add_grade_form(
+                parent=middle_frame,
+                data=students_data,
+                on_back=show_dashboard,
+                update_status=update_status
             )
         )
         add_grade_button.pack(pady=5)
@@ -147,9 +168,12 @@ def main():
             middle_frame,
             text="View Report",
             style="Dashboard.TButton",
-            command=lambda: show_placeholder(
-                "View Report",
-                "This section will be connected after Student 5 completes report_ui.py."
+            command=lambda: show_login_screen(
+                parent=middle_frame,
+                data=students_data,
+                on_teacher_success=show_dashboard,
+                on_student_success=lambda username: show_student_report(username),
+                update_status=update_status
             )
         )
         view_report_button.pack(pady=5)
@@ -166,9 +190,12 @@ def main():
             middle_frame,
             text="Login",
             style="Dashboard.TButton",
-            command=lambda: show_placeholder(
-                "Login",
-                "The login screen will be connected after Student 2 completes login_ui.py."
+            command=lambda: show_login_screen(
+                parent=middle_frame,
+                data=students_data,
+                on_teacher_success=show_dashboard,
+                on_student_success=lambda username: show_student_report(username),
+                update_status=update_status
             )
         )
         login_button.pack(pady=5)
@@ -181,3 +208,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from auth import teacher_login, student_login
 
 
+
 def clear_frame(frame):
     for widget in frame.winfo_children():
         widget.destroy()
