@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from data import load_data, save_data
+from auth import teacher_login, student_login 
+from students import add_student 
+from grades import add_grade 
+from report import generate_report 
+
 
 
 def main():
