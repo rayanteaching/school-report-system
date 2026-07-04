@@ -1,6 +1,9 @@
 {
-    "alireza": {
-        "password": "1389",
-        "grades": {}
+    "ali": {
+        "password": "1111",
+        "grades": {
+            "math": 18,
+            "science": 19
+        }
     }
 }
