@@ -1,11 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from data import load_data, save_data
+from add_student_ui import show_add_student_form
 from grade_ui import show_add_grade_form
-from auth import teacher_login, student_login 
-from students import add_student 
-from grades import add_grade 
-from report import generate_report
 from login_ui import show_login_screen
 from report_ui import show_report_window
 
@@ -141,11 +138,10 @@ def main():
             middle_frame,
             text="Add Student",
             style="Dashboard.TButton",
-            command=lambda: show_login_screen(
+            command=lambda: show_add_student_form(
                 parent=middle_frame,
                 data=students_data,
-                on_teacher_success=show_dashboard,
-                on_student_success=lambda username: show_student_report(username),
+                on_back=show_dashboard,
                 update_status=update_status
             )
         )
