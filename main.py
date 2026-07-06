@@ -124,6 +124,7 @@ def main():
 
     def show_dashboard():
         clear_screen()
+        middle_frame.configure(bg="#f0f4fa")
 
         dashboard_label = tk.Label(
             middle_frame,

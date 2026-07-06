@@ -233,8 +233,8 @@ def show_login_screen(
         show_error("Invalid username or password.")
         clear_entries()
 
-    # Bind Enter key to submit
-    parent.bind_all("<Return>", lambda e: handle_login())
+    username_entry.bind("<Return>", lambda event: handle_login())
+    password_entry.bind("<Return>", lambda event: handle_login())
     username_entry.focus()
 
 
