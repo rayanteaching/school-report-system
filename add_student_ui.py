@@ -55,7 +55,12 @@ def show_add_student_form(parent, data, on_back=None, update_status=None):
             return
 
         add_student(data, username, password)
-        save_data(data)
+        if not save_data(data):
+            messagebox.showerror("Save Error", "Student could not be saved.")
+            if update_status:
+                update_status("Save failed")
+            return
+
         messagebox.showinfo("Success", "Student added successfully")
 
         clear_entries()
@@ -70,12 +75,13 @@ def show_add_student_form(parent, data, on_back=None, update_status=None):
     )
     add_button.pack(pady=10)
 
-    back_button = ttk.Button(
-        parent,
-        text="Back",
-        command=on_back
-    )
-    back_button.pack(pady=5)
+    if on_back is not None:
+        back_button = ttk.Button(
+            parent,
+            text="Back",
+            command=on_back
+        )
+        back_button.pack(pady=5)
 
     username_entry.focus()
 
