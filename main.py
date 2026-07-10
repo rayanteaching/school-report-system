@@ -59,8 +59,6 @@ def main():
         bd=1
     )
     status_label.pack(fill="x")
-
-    # --- مرحله 2: وضعیت ساده برای کاربر فعلی ---
     session = {
         "username": None,
         "role": None
@@ -69,7 +67,6 @@ def main():
     def update_status(message):
         status_var.set(message)
 
-    # --- مرحله 3: clear_screen رنگ اصلی را هم برمی‌گرداند ---
     def clear_screen():
         middle_frame.configure(bg="#f0f4fa")
         for widget in middle_frame.winfo_children():
@@ -94,10 +91,8 @@ def main():
         )
 
     def show_student_dashboard_wrapper():
-        # دکمه Back گزارش، برمی‌گردد به dashboard دانش‌آموز همان کاربر لاگین‌شده
         show_student_dashboard(session["username"])
 
-    # --- مرحله 4: صفحه اول برنامه Login است ---
     def show_login_page():
         clear_screen()
         update_status("Please login")
@@ -110,15 +105,12 @@ def main():
             update_status=update_status
         )
 
-    # --- مرحله 5: بعد از Login موفق Teacher ---
     def handle_teacher_login_success():
         session["username"] = "teacher"
         session["role"] = "teacher"
 
         update_status("Teacher logged in successfully")
         show_teacher_dashboard()
-
-    # --- مرحله 6: بعد از Login موفق Student ---
     def handle_student_login_success(username):
         session["username"] = username
         session["role"] = "student"
@@ -126,7 +118,6 @@ def main():
         update_status(f"Student logged in successfully: {username}")
         show_student_dashboard(username)
 
-    # --- مرحله 7: Dashboard مخصوص Teacher ---
     def show_teacher_dashboard():
         clear_screen()
 
@@ -162,8 +153,6 @@ def main():
                 update_status=update_status
             )
         ).pack(pady=5)
-
-        # انتخاب دانش‌آموز برای Teacher هنوز آماده نیست -> پیام واضح، نه سکوت
         ttk.Button(
             middle_frame,
             text="View Report",
@@ -186,8 +175,6 @@ def main():
         ).pack(pady=5)
 
         update_status("Teacher logged in successfully")
-
-    # --- مرحله 8: Dashboard ساده برای Student ---
     def show_student_dashboard(username):
         clear_screen()
 
@@ -213,16 +200,12 @@ def main():
             style="Dashboard.TButton",
             command=logout
         ).pack(pady=5)
-
-    # --- مرحله 9: Logout ---
     def logout():
         session["username"] = None
         session["role"] = None
 
         update_status("Logged out")
         show_login_page()
-
-    # --- مرحله 10: شروع برنامه با Login ---
     show_login_page()
     root.mainloop()
 
