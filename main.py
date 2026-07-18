@@ -17,14 +17,12 @@ def main():
 
     style = ttk.Style(root)
     style.theme_use("clam")
-
     style.configure(
         "Title.TLabel",
         font=("Segoe UI", 18, "bold"),
         foreground="#2c3e50",
         background="#f0f4fa"
     )
-
     style.configure(
         "Dashboard.TButton",
         font=("Segoe UI", 10),
@@ -46,10 +44,8 @@ def main():
     middle_frame.pack(expand=True, fill="both", pady=15, padx=30)
 
     status_var = tk.StringVar(value="Ready")
-
     status_frame = tk.Frame(root, bg="#dfe6e9")
     status_frame.pack(side="bottom", fill="x")
-
     status_label = tk.Label(
         status_frame,
         textvariable=status_var,
@@ -63,49 +59,21 @@ def main():
         bd=1
     )
     status_label.pack(fill="x")
+    session = {
+        "username": None,
+        "role": None
+    }
 
     def update_status(message):
         status_var.set(message)
 
     def clear_screen():
+        middle_frame.configure(bg="#f0f4fa")
         for widget in middle_frame.winfo_children():
             widget.destroy()
 
-    def show_placeholder(title, message):
-        clear_screen()
-
-        page_title = tk.Label(
-            middle_frame,
-            text=title,
-            font=("Segoe UI", 14, "bold"),
-            bg="#f0f4fa",
-            fg="#2c3e50"
-        )
-        page_title.pack(pady=10)
-
-        info_label = tk.Label(
-            middle_frame,
-            text=message,
-            font=("Segoe UI", 10),
-            bg="#f0f4fa",
-            fg="#2c3e50",
-            wraplength=330
-        )
-        info_label.pack(pady=10)
-
-        back_button = ttk.Button(
-            middle_frame,
-            text="Back to Dashboard",
-            style="Dashboard.TButton",
-            command=show_dashboard
-        )
-        back_button.pack(pady=10)
-
-        update_status(title)
-
     def save_with_feedback():
         result = save_data(students_data)
-
         if result is False:
             update_status("Error while saving data")
             messagebox.showerror("Save Error", "Data could not be saved.")
@@ -118,91 +86,129 @@ def main():
             parent=middle_frame,
             data=students_data,
             username=username,
-            on_back=show_dashboard,
+            on_back=show_student_dashboard_wrapper,
             update_status=update_status
         )
 
-    def show_dashboard():
-        clear_screen()
-        middle_frame.configure(bg="#f0f4fa")
+    def show_student_dashboard_wrapper():
+        show_student_dashboard(session["username"])
 
-        dashboard_label = tk.Label(
+    def show_login_page():
+        clear_screen()
+        update_status("Please login")
+
+        show_login_screen(
+            parent=middle_frame,
+            data=students_data,
+            on_teacher_success=handle_teacher_login_success,
+            on_student_success=handle_student_login_success,
+            update_status=update_status
+        )
+
+    def handle_teacher_login_success():
+        session["username"] = "teacher"
+        session["role"] = "teacher"
+
+        update_status("Teacher logged in successfully")
+        show_teacher_dashboard()
+    def handle_student_login_success(username):
+        session["username"] = username
+        session["role"] = "student"
+
+        update_status(f"Student logged in successfully: {username}")
+        show_student_dashboard(username)
+
+    def show_teacher_dashboard():
+        clear_screen()
+
+        title_label = tk.Label(
             middle_frame,
-            text="Main Dashboard",
+            text="Teacher Dashboard",
             font=("Segoe UI", 13, "bold"),
             bg="#f0f4fa",
             fg="#2c3e50"
         )
-        dashboard_label.pack(pady=(0, 15))
+        title_label.pack(pady=(0, 15))
 
-        add_student_button = ttk.Button(
+        ttk.Button(
             middle_frame,
             text="Add Student",
             style="Dashboard.TButton",
             command=lambda: show_add_student_form(
                 parent=middle_frame,
                 data=students_data,
-                on_back=show_dashboard,
+                on_back=show_teacher_dashboard,
                 update_status=update_status
             )
-        )
-        add_student_button.pack(pady=5)
+        ).pack(pady=5)
 
-        add_grade_button = ttk.Button(
+        ttk.Button(
             middle_frame,
             text="Add Grade",
             style="Dashboard.TButton",
             command=lambda: show_add_grade_form(
                 parent=middle_frame,
                 data=students_data,
-                on_back=show_dashboard,
+                on_back=show_teacher_dashboard,
                 update_status=update_status
             )
-        )
-        add_grade_button.pack(pady=5)
-
-        view_report_button = ttk.Button(
+        ).pack(pady=5)
+        ttk.Button(
             middle_frame,
             text="View Report",
             style="Dashboard.TButton",
-            command=lambda: show_login_screen(
-                parent=middle_frame,
-                data=students_data,
-                on_teacher_success=show_dashboard,
-                on_student_success=lambda username: show_student_report(username),
-                update_status=update_status
-            )
-        )
-        view_report_button.pack(pady=5)
+            command=lambda: update_status("Teacher report view is not complete yet")
+        ).pack(pady=5)
 
-        save_data_button = ttk.Button(
+        ttk.Button(
             middle_frame,
             text="Save Data",
             style="Dashboard.TButton",
             command=save_with_feedback
-        )
-        save_data_button.pack(pady=5)
+        ).pack(pady=5)
 
-        login_button = ttk.Button(
+        ttk.Button(
             middle_frame,
-            text="Login",
+            text="Logout",
             style="Dashboard.TButton",
-            command=lambda: show_login_screen(
-                parent=middle_frame,
-                data=students_data,
-                on_teacher_success=show_dashboard,
-                on_student_success=lambda username: show_student_report(username),
-                update_status=update_status
-            )
+            command=logout
+        ).pack(pady=5)
+
+        update_status("Teacher logged in successfully")
+    def show_student_dashboard(username):
+        clear_screen()
+
+        title_label = tk.Label(
+            middle_frame,
+            text=f"Student Dashboard: {username}",
+            font=("Segoe UI", 13, "bold"),
+            bg="#f0f4fa",
+            fg="#2c3e50"
         )
-        login_button.pack(pady=5)
+        title_label.pack(pady=(0, 15))
 
-        update_status("Ready")
+        ttk.Button(
+            middle_frame,
+            text="View My Report",
+            style="Dashboard.TButton",
+            command=lambda: show_student_report(username)
+        ).pack(pady=5)
 
-    show_dashboard()
+        ttk.Button(
+            middle_frame,
+            text="Logout",
+            style="Dashboard.TButton",
+            command=logout
+        ).pack(pady=5)
+    def logout():
+        session["username"] = None
+        session["role"] = None
+
+        update_status("Logged out")
+        show_login_page()
+    show_login_page()
     root.mainloop()
 
 
 if __name__ == "__main__":
     main()
-
