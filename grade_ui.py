@@ -78,7 +78,13 @@ def show_add_grade_form(parent, data, on_back=None, update_status=None):
             return
 
         add_grade(data, username, subject, grade)
-        save_data(data)
+
+        if not save_data(data):
+            messagebox.showerror("Save Error", "Grade could not be saved.")
+            if update_status:
+                update_status("Save failed")
+            return
+
         messagebox.showinfo("Success", "Grade added successfully")
         clear_entries()
 
