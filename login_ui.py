@@ -78,57 +78,39 @@ def show_login_screen(
     header = tk.Frame(parent, bg=ACCENT, height=4)
     header.pack(fill="x")
 
-    icon_label = tk.Label(
+    tagline = tk.Label(
         parent,
-        text="🎓",
-        font=("Segoe UI", 28),
-        bg=BG_CARD,
-        fg=TEXT_PRIMARY,
-    )
-    icon_label.pack(pady=(18, 2))
-
-    title_label = tk.Label(
-        parent,
-        text="School Report System",
-        font=("Segoe UI", 15, "bold"),
-        bg=BG_CARD,
-        fg=TEXT_PRIMARY,
-    )
-    title_label.pack()
-
-    subtitle = tk.Label(
-        parent,
-        text="Sign in to continue",
-        font=("Segoe UI", 9),
+        text="🎓  Sign in to continue",
+        font=("Segoe UI", 11),
         bg=BG_CARD,
         fg=TEXT_MUTED,
     )
-    subtitle.pack(pady=(2, 14))
+    tagline.pack(pady=(10, 8))
 
     divider = tk.Frame(parent, bg=BORDER_COLOR, height=1)
-    divider.pack(fill="x", padx=20, pady=(0, 14))
+    divider.pack(fill="x", padx=20, pady=(0, 8))
 
     # ── Form fields ─────────────────────────────────────────────
     form_frame = tk.Frame(parent, bg=BG_CARD)
     form_frame.pack(padx=30, fill="x")
 
-    _make_label(form_frame, "Username").pack(anchor="w", pady=(0, 3))
+    _make_label(form_frame, "Username").pack(anchor="w", pady=(0, 2))
     username_entry = _make_styled_entry(form_frame)
-    username_entry.pack(fill="x", ipady=7, pady=(0, 12))
+    username_entry.pack(fill="x", ipady=5, pady=(0, 8))
 
-    _make_label(form_frame, "Password").pack(anchor="w", pady=(0, 3))
+    _make_label(form_frame, "Password").pack(anchor="w", pady=(0, 2))
     password_entry = _make_styled_entry(form_frame, show="•")
-    password_entry.pack(fill="x", ipady=7, pady=(0, 14))
+    password_entry.pack(fill="x", ipady=5, pady=(0, 8))
 
     # ── Role selector ────────────────────────────────────────────
     role_var = tk.StringVar(value="Teacher")
 
     role_frame = tk.Frame(form_frame, bg=BG_CARD)
-    role_frame.pack(fill="x", pady=(0, 16))
+    role_frame.pack(fill="x", pady=(0, 8))
 
     role_title = _make_label(role_frame, "Login as:", small=True)
     role_title.configure(bg=BG_CARD)
-    role_title.pack(anchor="w", pady=(0, 5))
+    role_title.pack(anchor="w", pady=(0, 3))
 
     btn_row = tk.Frame(role_frame, bg=BG_CARD)
     btn_row.pack(fill="x")
@@ -159,12 +141,13 @@ def show_login_screen(
     error_label = tk.Label(
         form_frame,
         textvariable=error_var,
-        font=("Segoe UI", 9),
+        font=("Segoe UI", 8),
         bg=BG_CARD,
         fg=ERROR_COLOR,
         anchor="w",
+        height=1,
     )
-    error_label.pack(fill="x", pady=(0, 6))
+    error_label.pack(fill="x", pady=(0, 2))
 
     # ── Login button ─────────────────────────────────────────────
     def _on_enter(e):
@@ -176,7 +159,7 @@ def show_login_screen(
     login_btn = tk.Button(
         form_frame,
         text="Sign In",
-        font=("Segoe UI", 11, "bold"),
+        font=("Segoe UI", 12, "bold"),
         bg=ACCENT,
         fg="white",
         activebackground=ACCENT_HOVER,
@@ -185,10 +168,10 @@ def show_login_screen(
         bd=0,
         cursor="hand2",
         padx=10,
-        pady=10,
+        pady=11,
         command=lambda: handle_login(),
     )
-    login_btn.pack(fill="x", pady=(4, 0))
+    login_btn.pack(fill="x", pady=(4, 10))
     login_btn.bind("<Enter>", _on_enter)
     login_btn.bind("<Leave>", _on_leave)
 
@@ -244,15 +227,15 @@ def run_test_window() -> None:
     """Launch a self-contained test window for login_ui."""
     root = tk.Tk()
     root.title("Login — School Report System")
-    root.geometry("400x520")
+    root.geometry("400x430")
     root.configure(bg=BG_MAIN)
     root.resizable(False, False)
 
     # Center on screen
     root.update_idletasks()
     x = (root.winfo_screenwidth() // 2) - 200
-    y = (root.winfo_screenheight() // 2) - 260
-    root.geometry(f"400x520+{x}+{y}")
+    y = (root.winfo_screenheight() // 2) - 215
+    root.geometry(f"400x430+{x}+{y}")
 
     test_data = {
         "ali": {
@@ -264,7 +247,7 @@ def run_test_window() -> None:
     # Card wrapper
     card = tk.Frame(root, bg=BG_CARD, bd=0, highlightthickness=1,
                     highlightbackground=BORDER_COLOR)
-    card.place(relx=0.5, rely=0.5, anchor="center", width=340, height=480)
+    card.place(relx=0.5, rely=0.5, anchor="center", width=340, height=390)
 
     # Status bar
     status_var = tk.StringVar(value="Ready")
